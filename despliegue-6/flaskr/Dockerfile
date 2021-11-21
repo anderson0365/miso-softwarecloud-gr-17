@@ -16,5 +16,6 @@ USER app
 RUN mkdir -p /home/app/flaskr
 WORKDIR /home/app/flaskr
 COPY --chown=app:app . .
-RUN mv wsgi.py config.yml ../ \
+RUN mv wsgi.py \
+    && cp config.yml ../ \
     && chmod 777 start-celery.sh start-flask.sh wait-for-it.sh
