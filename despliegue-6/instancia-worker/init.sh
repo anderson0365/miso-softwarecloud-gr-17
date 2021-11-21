@@ -7,5 +7,5 @@ chmod +x /usr/local/bin/docker-compose
 mkdir -p /home/app
 cd /home/app
 git clone https://github.com/anderson0365/miso-softwarecloud-gr-17.git
-cd miso-softwarecloud-gr-17/instancia-worker
-docker-compose up -d
+cd /home/app/miso-softwarecloud-gr-17/instancia-worker
+/usr/local/bin/docker-compose up -d
