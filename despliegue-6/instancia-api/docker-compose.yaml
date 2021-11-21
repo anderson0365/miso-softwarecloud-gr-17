@@ -15,5 +15,3 @@ services:
       - api
     ports:
       - 5000:80
-volumes:
-  db_info: {}
