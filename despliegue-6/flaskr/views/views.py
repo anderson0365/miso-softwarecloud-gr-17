@@ -85,6 +85,7 @@ class ViewSignUp(Resource):
                 session.add(new_user)
                 session.commit()
             except psycopg2.errors.UniqueViolation as err:
+                session.rollback()
                 return 'The given email is already in use.', 404
             except:
                 return 'Some of the given parameters are not valid.', 404
