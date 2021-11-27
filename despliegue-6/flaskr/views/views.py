@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from datetime import datetime
 from ..config import UPLOAD_FOLDER, DOWNLOAD_FOLDER, AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, BUCKET_NAME
 from werkzeug.utils import secure_filename
-import boto3
+import boto3, psycopg2
 from ..tasks import conversion_task2
 
 s3 = boto3.client('s3',
@@ -84,7 +84,7 @@ class ViewSignUp(Resource):
             try:
                 session.add(new_user)
                 session.commit()
-            except IntegrityError as err:
+            except psycopg2.errors.UniqueViolation as err:
                 return 'The given email is already in use.', 404
             except:
                 return 'Some of the given parameters are not valid.', 404
