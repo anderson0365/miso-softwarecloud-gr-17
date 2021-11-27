@@ -9,6 +9,7 @@ aws:
   CELERY_BROKER_URL: "redis://172.168.1.119:6379/0"
   CELERY_RESULT_BACKEND: "redis://172.168.1.119:6379/0"
   BUCKET_NAME: "miso-cloud-gr32"
+  SECRET_KEY: "xD$F*CV&O0cU"
 smtp:
   SERVER: "172.168.1.252"
   PORT: 1025
