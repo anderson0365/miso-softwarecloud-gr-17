@@ -5,7 +5,7 @@ from celery import Celery
 
 def create_app(config):
     app = Flask(config["name"])
-    app.config.update(config["app-config"])
+    app.config.update(config["aws"])
     return app
 
 def make_celery(app):
