@@ -29,8 +29,8 @@ with open(r'' + config_path) as file:
     SMTP_SERVER_IP = config["smtp"]["SERVER"]
     SMTP_PORT = config["smtp"]["PORT"]
     EMAIL = config["smtp"]["EMAIL"]
-    CELERY_BROKER_URL = config["app-config"]["CELERY_BROKER_URL"]
-    CELERY_RESULT_BACKEND = config["app-config"]["CELERY_RESULT_BACKEND"]
+    CELERY_BROKER_URL = config["aws"]["CELERY_BROKER_URL"]
+    CELERY_RESULT_BACKEND = config["aws"]["CELERY_RESULT_BACKEND"]
 
 Base.metadata.create_all(bind=engine)
 
