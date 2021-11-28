@@ -1,10 +1,7 @@
 from datetime import datetime
-from sys import path
-from flaskr import config
-from flaskr.models.models import Task
-from ..models.database import session, engine
-from ..models import Base, User
-import smtplib, ssl, yaml, boto3, json, subprocess, os, time
+from .models.database import session, engine
+from .models import Base, Task
+import smtplib, yaml, boto3, json, subprocess, os, time
 
 import logging
 urllib3_logger = logging.getLogger('urllib3')
