@@ -1,6 +1,6 @@
 from datetime import datetime
-from .models.database import session, engine
-from .models import Base, Task
+from models.database import session, engine
+from models.models import Base, Task
 import smtplib, yaml, boto3, json, subprocess, os, time
 
 import logging
