@@ -1,5 +1,4 @@
 #!bin/bash
-# sudo su
 apt update
 docker image rm -f $(docker image ls -q)
 add-apt-repository -y ppa:deadsnakes/ppa
@@ -17,5 +16,4 @@ pip install --no-cache-dir pydub gunicorn boto3
 cp wsgi.py config.yml ../
 chmod 777 start-celery.sh start-flask.sh wait-for-it.sh
 cd ..
-celery -A  flaskr.tasks.tasks worker -B -l info
-# exit
+python ./flaskr/tasks/tasks.py

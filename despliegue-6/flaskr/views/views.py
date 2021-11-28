@@ -1,5 +1,5 @@
 from re import A
-from flask import request, send_from_directory, Response
+from flask import request, Response
 from ..models.database import  session, engine
 from ..models import Base, User, Task, TaskSchema
 from flask_restful import Resource
@@ -7,22 +7,9 @@ from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
-from ..config import UPLOAD_FOLDER, DOWNLOAD_FOLDER, AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, BUCKET_NAME
+from ..config import BUCKET_NAME, UPLOAD_FOLDER, DOWNLOAD_FOLDER
+from ..tasks import bucket, s3, sqs_client, queue_url, send_message
 from werkzeug.utils import secure_filename
-import boto3
-from ..tasks import conversion_task2
-
-s3 = boto3.client('s3',
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    aws_session_token= AWS_SESSION_TOKEN
-)
-
-bucket = boto3.resource('s3',
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    aws_session_token= AWS_SESSION_TOKEN
-).Bucket(BUCKET_NAME)
 
 Base.metadata.create_all(bind=engine)
 
@@ -166,7 +153,7 @@ class ViewTasks(Resource):
                     timeStamp=time_stamp, status='uploaded')
         user.tasks.append(task)
         session.commit()
-        conversion_task2.delay(user.id, task.id)
+        send_message(sqs_client, queue_url,{"username":user.username,"email":user.email,"task":task.id})
         return {"message": "Task successfully created.", "New Task": task_schema.dump(task)}
 
 class ViewTask(Resource):
@@ -196,7 +183,7 @@ class ViewTask(Resource):
             task.newFormat = request.json["newFormat"]
             task.timeStamp=datetime.utcnow()
             session.commit()
-            conversion_task2.delay(user.id, task.id)
+            send_message(sqs_client, queue_url,{"username":user.username,"email":user.email,"task":task.id})
             return task_schema.dump(task)
 
         return "Task not found in current user", 404

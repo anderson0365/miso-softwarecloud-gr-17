@@ -1,5 +1,4 @@
 #!bin/bash
-# sudo su
 apt update
 docker image rm -f $(docker image ls -q)
 add-apt-repository -y ppa:deadsnakes/ppa
@@ -18,4 +17,3 @@ cp wsgi.py config.yml ../
 chmod 777 start-celery.sh start-flask.sh wait-for-it.sh
 cd ..
 gunicorn -w 1 -b 0.0.0.0:5000 wsgi:app
-# exit
