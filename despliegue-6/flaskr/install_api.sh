@@ -14,6 +14,5 @@ cd miso-softwarecloud-gr-17/despliegue-6/flaskr
 pip install --no-cache-dir -r requirements.txt
 pip install --no-cache-dir pydub gunicorn boto3
 cp wsgi.py config.yml ../
-chmod 777 start-celery.sh start-flask.sh wait-for-it.sh
 cd ..
 gunicorn -w 1 -b 0.0.0.0:5000 wsgi:app

@@ -28,6 +28,7 @@ with open(r'' + config_path) as file:
 Base.metadata.create_all(bind=engine)
 
 s3 = boto3.client('s3',
+
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
     aws_session_token= AWS_SESSION_TOKEN
@@ -80,6 +81,7 @@ def delete_message(sqs_client, queue_url, receipt_handle):
     )
 
 sqs_client = boto3.client('sqs',
+    region_name='us-east-1',
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
     aws_session_token= AWS_SESSION_TOKEN
