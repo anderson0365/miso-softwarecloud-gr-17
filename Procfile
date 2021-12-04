@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:5000 flaskr.app:app
+web: gunicorn -b 0.0.0.0:$PORT flaskr.app:app
