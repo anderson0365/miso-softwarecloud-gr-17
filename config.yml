@@ -10,7 +10,7 @@ aws:
   SECRET_KEY: "xD$F*CV&O0cU"
   SQS_QUEUE_NAME: conversor_queue
 smtp:
-  SERVER: "172.168.1.252"
+  SERVER: "44.192.90.73"
   PORT: 1025
   EMAIL: "conversor_miso@conversor.com"
   
