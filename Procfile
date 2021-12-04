@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:5000 flaskr.app:app
+web: gunico flaskr.app:app --host=0.0.0.0 --port=${PORT:-5000}
